@@ -5,10 +5,10 @@ import { Link, useLocation } from 'react-router-dom';
 import logo from '../../public/Logo.png';
 import dashboard from '../../public/ico-dashboard.svg';
 import webs from '../../public/ico-webs.svg';
-import artistas from '../../ico-card-artistas.svg';
-import murais from '../../ico-card-murais.svg';
-import comentarios from '../../ico-comentario.svg';
-import eventos from '../../ico-card-eventos.svg';
+import artistas from '../../public/ico-card-artistas.svg';
+import murais from '../../public/ico-card-murais.svg';
+import comentarios from '../../public/ico-comentario.svg';
+import eventos from '../../public/ico-card-eventos.svg';
 export function Menu(props) {
 
     const location = useLocation(); 
