@@ -9,6 +9,10 @@ import api from "../../api";
 import CardCount from "../../components/CardCounts";
 import { ModalAssociarMuraisArtistas } from "../../components/ModalAssociarMuraisArtistas";
 import { ModalAssociarEventosMurais } from '../../components/ModalAssociarEventosMurais';
+import cardArtistas from "../../../public/ico-card-artistas.svg";
+import cardMurais from "../../../public/ico-card-murais.svg";
+import cardEventos from "../../../public/ico-card-eventos.svg";
+import trash from "../../../public/ico-trash.svg";
 
 let deleteEventosmurais = (idevento) => {
   Swal.fire({
@@ -111,7 +115,7 @@ function LoadFillDataMA() {
               onClick={() => deleteMuraisartista(data.idmural)}
             >
               <button style={{ border: "none", background: "none" }}>
-                <img src="../assets/ico-trash.svg" alt="apagar" />
+                <img src={trash} alt="apagar" />
               </button>
             </span>
           </td>
@@ -199,9 +203,9 @@ function DashboardAdmin() {
             <h2 className="mt-4">Dashboard</h2>
             <div className="col col-md-10">
               <div className="d-flex flex-wrap mt-3">
-                <CardCount titulo="nrº artistas" icon="../../assets/ico-card-artistas.svg" nr={infoAdmin} />
-                <CardCount titulo="nrº Murais"  icon="../../assets/ico-card-murais.svg" nr={infoMurais} />
-                <CardCount titulo="nrº Eventos"  icon="../../assets/ico-card-eventos.svg" nr={infoEventos} />
+                <CardCount titulo="nrº artistas" icon={cardArtistas} nr={infoAdmin} />
+                <CardCount titulo="nrº Murais"  icon={cardMurais} nr={infoMurais} />
+                <CardCount titulo="nrº Eventos"  icon={cardEventos} nr={infoEventos} />
                
               </div>
               <div className="d-flex justify-content-between">
