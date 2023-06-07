@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import leave from '../../public/ico-leave.svg';
 export function Topnav(props) {
 
   const{role}= props;
@@ -17,7 +18,7 @@ export function Topnav(props) {
           <ul className="nav d-inline-flex">
             <li className="nav-item">
               <Link to='/' className="nav-link" type="button">
-                <img src="./assets/ico-leave.svg" alt="saida" />
+                <img src={leave} alt="saida" />
               </Link>
             </li>
           </ul>
