@@ -1,6 +1,6 @@
 .bg-image {
   /* fundo da app */
-  background-image: url('../assets/background-heroi.jpg');
+  background-image: url('../../public/background-heroi.jpg');
   background-size: cover;
 }
 
@@ -16,6 +16,5 @@ textarea {
   border-radius: 4px;
   width:57rem;
   height: auto;
-  background-image: url("./assets/backgroundneve.jpg");
   color: white;
 }
