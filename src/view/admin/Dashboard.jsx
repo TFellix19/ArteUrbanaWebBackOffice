@@ -162,7 +162,7 @@ function LoadFillDataEM() {
               onClick={() => deleteEventosmurais(data.idevento)}
             >
               <button style={{ border: "none", background: "none" }}>
-                <img src="../assets/ico-trash.svg" alt="apagar" />
+                <img src={trash} alt="apagar" />
               </button>
             </span>
           </td>

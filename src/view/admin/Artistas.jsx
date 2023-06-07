@@ -7,7 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import api from "../../api";
 import { ModalEditarArtistas } from "../../components/Artistas/ModalEditarArtistas";
 import { ModalCriarArtistas } from "../../components/Artistas/ModalCriarArtistas";
-
+import trash from "../../../public/ico-trash.svg";
+import pen from "../../../public/ico-pen.svg";
+import addArtistas from "../../../public/ico-add-artistas.svg";
 
     let deleteArtista = (idartista) => {
         Swal.fire({
@@ -100,7 +102,7 @@ function LoadFillData() {
                   data-bs-toggle="modal"
                   data-bs-target="#ModalEditarArtista"
                 >
-                  <img src="../assets/ico-pen.svg" alt="editar" />
+                  <img src={pen} alt="editar" />
                 </button>
               </span>
 
@@ -110,7 +112,7 @@ function LoadFillData() {
                 onClick={() => deleteArtista(data?.idartista)}
               >
                 <button style={{ border: "none", background: "none" }}>
-                  <img src="../assets/ico-trash.svg" alt="apagar" />
+                  <img src={trash} alt="apagar" />
                 </button>
               </span>
 
@@ -159,7 +161,7 @@ function ArtistasManagement() {
             >
               <img
                 style={{objectFit: 'contain'}}
-                src="../../assets/ico-add-artistas.svg"
+                src={addArtistas}
                 alt="adicionar artistas"
               ></img>
             </button>

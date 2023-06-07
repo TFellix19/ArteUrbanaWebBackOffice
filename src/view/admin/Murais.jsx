@@ -7,7 +7,9 @@ import { toast } from 'react-toastify';
 import api from "../../api";
 import { ModalEditarMurais } from "../../components/Murais/ModalEditarMurais";
 import { ModalCriarMurais } from "../../components/Murais/ModalCriarMurais";
-
+import trash from "../../../public/ico-trash.svg";
+import pen from "../../../public/ico-pen.svg";
+import addMurais from "../../../public/ico-add-murais.svg";
 
     let deleteMurais = (idmural) => {
         Swal.fire({
@@ -100,7 +102,7 @@ function LoadFillData() {
                   data-bs-toggle="modal"
                   data-bs-target="#ModalEditarMural"
                 >
-                  <img src="../assets/ico-pen.svg" alt="editar" />
+                  <img src={pen} alt="editar" />
                 </button>
               </span>
 
@@ -110,7 +112,7 @@ function LoadFillData() {
                 onClick={() => deleteMurais(data?.idmural)}
               >
                 <button style={{ border: "none", background: "none" }}>
-                  <img src="../assets/ico-trash.svg" alt="apagar" />
+                  <img src={trash} alt="apagar" />
                 </button>
               </span>
 
@@ -158,7 +160,7 @@ function MuraisManagement() {
             >
               <img
                 style={{objectFit: 'contain'}}
-                src="../../assets/ico-add-murais.svg"
+                src={addMurais}
                 alt="adicionar Murais"
               ></img>
             </button>

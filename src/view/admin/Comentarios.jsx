@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import api from "../../api";
 import { ModalEditarComentarios } from "../../components/Comentarios/ModalEditarComentarios";
-
+import trash from "../../../public/ico-trash.svg";
+import pen from "../../../public/ico-pen.svg";
+import addArtistas from "../../../public/ico-add-artistas.svg";
 
     let deleteComentario = (idcomentario) => {
         Swal.fire({
@@ -86,7 +88,7 @@ function LoadFillData() {
                   data-bs-toggle="modal"
                   data-bs-target="#ModalEditarComentarios"
                 >
-                  <img src="../assets/ico-pen.svg" alt="editar" />
+                  <img src={pen} alt="editar" />
                 </button>
               </span>
 
@@ -96,7 +98,7 @@ function LoadFillData() {
                 onClick={() => deleteComentario(data?.idcomentario)}
               >
                 <button style={{ border: "none", background: "none" }}>
-                  <img src="../assets/ico-trash.svg" alt="apagar" />
+                  <img src={trash} alt="apagar" />
                 </button>
               </span>
 
