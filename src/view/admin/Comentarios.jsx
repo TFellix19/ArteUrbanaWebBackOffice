@@ -76,42 +76,12 @@ function LoadFillData() {
             <td>{data.comentario}</td>
             <td>
               <span
-                className="material-symbols-outlined"
-                onClick={() => {
-                  setSelectedComentario(data);
-                  setModalEditarcomentariosShow(true);
-                }}
-              >
-                <button
-                  style={{ border: "none", background: "none" }}
-                  data-bs-toggle="modal"
-                  data-bs-target="#ModalEditarComentarios"
-                >
-                  <img src={pen} alt="editar" />
-                </button>
-              </span>
-
-              <span
                 id={data?.idcomentario}
                 className="material-symbols-outlined"
                 onClick={() => deleteComentario(data?.idcomentario)}
               >
                 <button style={{ border: "none", background: "none" }}>
                   <img src={trash} alt="apagar" />
-                </button>
-              </span>
-
-              <span
-                id={data?.idcomentario}
-                className="material-symbols-outlined"
-                onClick={() => {
-                  setSelectedComentario(data);
-                  setModalConfirmacaoShow(true);
-                }}
-              >
-                <button 
-                style={{ border: "none", background: "none", textDecoration:'underline' }}>
-                 ver detalhes
                 </button>
               </span>
             </td>
