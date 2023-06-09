@@ -8,7 +8,6 @@ import api from "../../api";
 import { ModalEditarComentarios } from "../../components/Comentarios/ModalEditarComentarios";
 import trash from "../../../public/ico-trash.svg";
 import pen from "../../../public/ico-pen.svg";
-import addArtistas from "../../../public/ico-add-artistas.svg";
 
     let deleteComentario = (idcomentario) => {
         Swal.fire({
