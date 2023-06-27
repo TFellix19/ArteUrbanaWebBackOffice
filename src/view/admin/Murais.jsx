@@ -1,148 +1,86 @@
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
-import { Topnav } from "../../components/Topnav";
-import { Menu } from "../../components/Menu";
 import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 import api from "../../api";
+import { Topnav } from "../../components/Topnav";
+import { Menu } from "../../components/Menu";
 import { ModalEditarMurais } from "../../components/Murais/ModalEditarMurais";
 import { ModalCriarMurais } from "../../components/Murais/ModalCriarMurais";
 import trash from "../../../public/ico-trash.svg";
 import pen from "../../../public/ico-pen.svg";
 import addMurais from "../../../public/ico-add-murais.svg";
-
-    let deleteMurais = (idmural) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                api.delete("murais/deletemural/" + idmural).then(() => {
-                    onHide();
-                  })
-                  toast.success('apagado com sucesso', {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  });
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-            }
-          })
-    }
-
-
-
-function LoadFillData() {
-  const [Murais, setMurais] = useState([]);
-  const [modalEditarMuraisShow, setModalEditarMuraisShow] = useState(false);
-  const [selectedMurais, setSelectedMurais] = useState(null);
-
-  useEffect(() => {
-    api
-      .get("/murais/list")
-      .then(({ data }) => {
-        const dados = data.data;
-        var newMurais = [];
-        dados.map((Murais) => {
-          newMurais.push({
-            idmural: Murais.idmural,
-            titulo: Murais.titulo,
-            datainauguracao: Murais.datainauguracao,
-            rua: Murais.rua,
-            latitude: Murais.latitude,
-            longitude: Murais.longitude,
-            descricao: Murais.descricao,
-            qrcode: Murais.qrcode,
-            fotografia1: Murais.fotografia1,
-            fotografia2: Murais.fotografia2,
-            fotografia3: Murais.fotografia3
-          });
-        });
-        setMurais(newMurais);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  return (
-    <>
-      {Murais.map((data, index) => {
-        return (
-          <tr key={index}>
-            <th>{data.idmural}</th>
-            <th>{data.titulo}</th>
-            <td>{data.rua}</td>
-            <td>{data.qrcode}</td>
-            <td>{data.latitude}</td>
-            <td>{data.longitude}</td>
-            <td>
-              <span
-                className="material-symbols-outlined"
-                onClick={() => {
-                  setSelectedMurais(data);
-                  setModalEditarMuraisShow(true);
-                }}
-              >
-                <button
-                  style={{ border: "none", background: "none" }}
-                  data-bs-toggle="modal"
-                  data-bs-target="#ModalEditarMural"
-                >
-                  <img src={pen} alt="editar" />
-                </button>
-              </span>
-
-              <span
-                id={data?.idmural}
-                className="material-symbols-outlined"
-                onClick={() => deleteMurais(data?.idmural)}
-              >
-                <button style={{ border: "none", background: "none" }}>
-                  <img src={trash} alt="apagar" />
-                </button>
-              </span>
-
-              <span
-                id={data?.idmural}
-                className="material-symbols-outlined"
-                onClick={() => {
-                  setSelectedMurais(data);
-                  setModalConfirmacaoShow(true);
-                }}
-              >
-                <button 
-                style={{ border: "none", background: "none", textDecoration:'underline' }}>
-                 ver detalhes
-                </button>
-              </span>
-            </td>
-          </tr>
-        );
-      })}
-      <ModalEditarMurais
-        show={modalEditarMuraisShow}
-        onHide={() => setModalEditarMuraisShow(false)}
-        props={selectedMurais}
-      />
-    </>
-  );
-}
+import { ModalVerInfoMurais } from '../../components/Murais/ModalVerInfoMurais';
 
 function MuraisManagement() {
+  const [murais, setMurais] = useState([]);
+  const [modalEditarMuraisShow, setModalEditarMuraisShow] = useState(false);
+  const [selectedMural, setSelectedMural] = useState(null);
+  const [modalConfirmacaoShow, setModalConfirmacaoShow] = useState(false);
+
+  useEffect(() => {
+    loadMurais();
+  }, []);
+
+  const loadMurais = () => {
+    api.get("/murais/list")
+      .then(({ data }) => {
+        const muraisData = data.data;
+        setMurais(muraisData);
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
+
+  const deleteMural = (idMural) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api.delete("murais/deletemural/" + idMural)
+          .then(() => {
+            setModalConfirmacaoShow(false);
+            loadMurais();
+            toast.success('Deleted successfully', {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          })
+          .catch((error) => {
+            toast.error(error.message, {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          });
+      }
+    });
+  };
+
   return (
     <div className="d-flex">
       <Menu />
@@ -168,7 +106,7 @@ function MuraisManagement() {
           <table className="table table-striped mt-5">
             <thead>
               <tr>
-              <th scope="col">id</th>
+                <th scope="col">id</th>
                 <th scope="col">Titulo</th>
                 <th scope="col">Rua</th>
                 <th scope="col">QRcode</th>
@@ -178,12 +116,74 @@ function MuraisManagement() {
               </tr>
             </thead>
             <tbody>
-              <LoadFillData />
+              {murais.map((mural, index) => (
+                <tr key={index}>
+                  <td>{mural.idmural}</td>
+                  <td>{mural.titulo}</td>
+                  <td>{mural.rua}</td>
+                  <td>{mural.qrcode}</td>
+                  <td>{mural.latitude}</td>
+                  <td>{mural.longitude}</td>
+                  <td>
+                    <span
+                      className="material-symbols-outlined"
+                      onClick={() => {
+                        setSelectedMural(mural);
+                        setModalEditarMuraisShow(true);
+                      }}
+                    >
+                      <button
+                        style={{ border: "none", background: "none" }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModalEditarMural"
+                      >
+                        <img src={pen} alt="editar" />
+                      </button>
+                    </span>
+
+                    <span
+                      id={mural?.idmural}
+                      className="material-symbols-outlined"
+                      onClick={() => deleteMural(mural?.idmural)}
+                    >
+                      <button style={{ border: "none", background: "none" }}>
+                        <img src={trash} alt="apagar" />
+                      </button>
+                    </span>
+
+                    <span
+                      id={mural?.idmural}
+                      className="material-symbols-outlined"
+                      onClick={() => {
+                        setSelectedMural(mural);
+                        setModalConfirmacaoShow(true);
+                      }}
+                    >
+                      <button 
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModalVerInfoMural"
+                        style={{ border: "none", background: "none", textDecoration:'underline' }}
+                      >
+                        ver detalhes
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <ModalEditarMurais />
+        <ModalEditarMurais
+          show={modalEditarMuraisShow}
+          onHide={() => setModalEditarMuraisShow(false)}
+          props={selectedMural}
+        />
         <ModalCriarMurais />
+        <ModalVerInfoMurais
+          show={modalConfirmacaoShow}
+          onHide={() => setModalConfirmacaoShow(false)}
+          muralSelecionado={selectedMural}
+        />
       </main>
     </div>
   );
