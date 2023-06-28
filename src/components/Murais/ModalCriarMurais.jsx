@@ -173,16 +173,6 @@ export function ModalCriarMurais({ show, onHide }) {
                   />
                 </div>
                 <div className="form-group mt-3">
-                  <label>descricao</label>
-                  <textarea
-                    rows="5"
-                    type="text"
-                    className="form-control"
-                    onChange={(e) => setDescricao(e.target.value)}
-                    placeholder="Descreva o mural"
-                  />
-                </div>
-                <div className="form-group mt-3">
                   <label>Fotografia</label>
                   <input
                     type="text"
