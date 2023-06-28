@@ -43,13 +43,13 @@ function MuraisManagement() {
 
   const deleteMural = (idMural) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Tens a certeza?',
+      text: "Não vais conseguir reverter esta alteração",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Sim, Apagar!'
     }).then((result) => {
       if (result.isConfirmed) {
         api.delete("murais/deletemural/" + idMural)

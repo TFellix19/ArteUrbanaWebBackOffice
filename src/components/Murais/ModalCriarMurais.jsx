@@ -66,7 +66,7 @@ export function ModalCriarMurais({ show, onHide }) {
             progress: undefined,
           });
         } else {
-          sendError("Erro ao criar utilizador");
+          sendError("Erro ao criar Mural");
         }
       });
     }
