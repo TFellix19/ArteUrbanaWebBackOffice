@@ -164,16 +164,7 @@ export function ModalCriarMurais({ show, onHide }) {
                   />
                 </div>
                 <div className="form-group mt-3">
-                  <label>Rede Social 2</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={(e) => setRedesocial2(e.target.value)}
-                    placeholder="Insira o link de uma rede social"
-                  />
-                </div>
-                <div className="form-group mt-3">
-                  <label>Fotografia</label>
+                  <label>Fotografia 1</label>
                   <input
                     type="text"
                     className="form-control"
