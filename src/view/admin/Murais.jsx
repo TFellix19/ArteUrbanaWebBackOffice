@@ -49,14 +49,15 @@ function MuraisManagement() {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, Apagar!'
+      confirmButtonText: 'Sim, Apagar!',
+      cancelButtonText:'cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         api.delete("murais/deletemural/" + idMural)
           .then(() => {
             setModalConfirmacaoShow(false);
             loadMurais();
-            toast.success('Deleted successfully', {
+            toast.success('Apagado com  sucesso', {
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
