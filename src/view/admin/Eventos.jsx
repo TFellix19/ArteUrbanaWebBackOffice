@@ -117,10 +117,6 @@ function LoadFillData() {
                   setModalConfirmacaoShow(true);
                 }}
               >
-                <button 
-                style={{ border: "none", background: "none", textDecoration:'underline' }}>
-                 ver detalhes
-                </button>
               </span>
             </td>
           </tr>
