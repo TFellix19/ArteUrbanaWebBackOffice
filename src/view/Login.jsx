@@ -14,7 +14,7 @@ function Login() {
     if (email === 'admin' && pwd === 'admin321') {
       navigate('/Dashboard'); // Redireciona para a página de dashboard
     } else {
-      alert('Credenciais inválidas. Tente novamente.');
+      alert('Dados inválidos. Tente novamente.');
     }
   };
 
