@@ -10,45 +10,48 @@ import { ModalCriarArtistas } from "../../components/Artistas/ModalCriarArtistas
 import trash from "../../../public/ico-trash.svg";
 import pen from "../../../public/ico-pen.svg";
 import addArtistas from "../../../public/ico-add-artistas.svg";
+import { ModalVerInfoArtistas } from '../../components/Artistas/ModalVerInfoArtistas';
 
-    let deleteArtista = (idartista) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                api.delete("artistas/deleteartista/" + idartista).then(() => {
-                    onHide();
-                  })
-                  toast.success('apagado com sucesso', {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  });
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-            }
-          })
+let deleteArtista = (idartista) => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      api.delete("artistas/deleteartista/" + idartista)
+        .then(() => {
+          onHide();
+        })
+        .catch((error) => {
+          toast.error(error.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
     }
-
-
+  })
+}
 
 function LoadFillData() {
   const [artista, setArtista] = useState([]);
   const [modalEditarArtistasShow, setModalEditarArtistasShow] = useState(false);
   const [selectedArtista, setSelectedArtista] = useState(null);
+  const [modalVerInfoArtistasShow, setModalVerInfoArtistasShow] = useState(false);
 
   useEffect(() => {
     api
@@ -121,12 +124,15 @@ function LoadFillData() {
                 className="material-symbols-outlined"
                 onClick={() => {
                   setSelectedArtista(data);
-                  setModalConfirmacaoShow(true);
+                  setModalVerInfoArtistasShow(true);
                 }}
               >
-                <button 
-                style={{ border: "none", background: "none", textDecoration:'underline' }}>
-                 ver detalhes
+                <button
+                  style={{ border: "none", background: "none", textDecoration:'underline' }}
+                  data-bs-toggle="modal"
+                  data-bs-target="#ModalVerInfoArtista"
+                >
+                  ver detalhes
                 </button>
               </span>
             </td>
@@ -137,6 +143,11 @@ function LoadFillData() {
         show={modalEditarArtistasShow}
         onHide={() => setModalEditarArtistasShow(false)}
         props={selectedArtista}
+      />
+      <ModalVerInfoArtistas
+        show={modalVerInfoArtistasShow}
+        onHide={() => setModalVerInfoArtistasShow(false)}
+        artistaSelecionado={selectedArtista}
       />
     </>
   );
@@ -185,6 +196,7 @@ function ArtistasManagement() {
         </div>
         <ModalEditarArtistas />
         <ModalCriarArtistas />
+        <ModalVerInfoArtistas />
       </main>
     </div>
   );

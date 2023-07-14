@@ -63,6 +63,7 @@ export function ModalVerInfoMurais({ show, onHide, muralSelecionado }) {
                   </div>
                   <div className="form-group mt-3">
                     <label>Qrcode:</label>
+                    <img style={{width: 'auto', height: '200px'}} src={mural.qrcode} alt="" />
                     <p>{mural.qrcode}</p>
                   </div>
                   <div className="form-group mt-3">
